@@ -1,0 +1,20 @@
+name: "validate"
+matmul_precision: "medium"
+
+data:
+  # The path could be either the val or test dataset
+  val_path: "/home/nkaravasilis@wincell.dc/github/PubMed-MultiLabel-Text-Classification/data/val.csv"
+  max_length: 100
+  n_labels: 15
+  padding: "max_length"
+  truncation: True 
+  features_cols: ["abstractText"]
+  label_cols: ["labels"]
+  num_workers: 2 
+  pin_memory: True
+  batch: 2
+
+
+model:
+  type: "Bert-cased"
+  weight_path: "/home/nkaravasilis@wincell.dc/github/PubMed-MultiLabel-Text-Classification/weights/model_epoch2.pth"
