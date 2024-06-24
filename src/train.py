@@ -8,6 +8,7 @@ import util.utils as utils
 import logging
 from data.dataset import TextDataset
 from functools import partial
+from typing import Dict, Any
 
 from tqdm import tqdm
 from torchmetrics.classification import (
@@ -16,13 +17,8 @@ from torchmetrics.classification import (
     MultilabelF1Score,
 )
 
-# from utils.const import _PROJECT_NAME, _NEPTUNE_PROJECT
 
-# TODO:
-# 1. typing and costrings
-
-
-def main(config) -> None:
+def main(config: Dict[str, Any]) -> None:
     utils.print_config(config=config, verbose=config.verbose)
 
     # Set matrix multiplication precision

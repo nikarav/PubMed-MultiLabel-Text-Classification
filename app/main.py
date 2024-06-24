@@ -25,7 +25,7 @@ async def predict(request: PredictionRequest):
 
     try:
         prediction = model.predict(request.texts)
-        return PredictionResponse(prediction=prediction)
+        return PredictionResponse(prediction=prediction)  # return text answer
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

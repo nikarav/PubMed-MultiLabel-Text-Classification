@@ -1,7 +1,6 @@
 import os
 from typing import Optional, Union, Any, Dict, Tuple, List
 import numpy as np
-from pathlib import Path
 import yaml
 import logging
 import random
@@ -115,6 +114,15 @@ def read_config_file(config_path: str) -> Union[Config, Exception]:
 
 
 def set_seed(seed: int = 1) -> None:
+    """
+    Set the seed for random number generators in random, numpy, and torch for reproducibility.
+
+    Args:
+        seed (int): The seed value to use. Defaults to 1.
+
+    Example usage:
+        set_seed(42)
+    """
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -123,7 +131,24 @@ def set_seed(seed: int = 1) -> None:
     torch.backends.cudnn.deterministic = True
 
 
-def getTokenizer(type: str) -> PreTrainedTokenizer | PreTrainedTokenizerFast | None:
+def getTokenizer(
+    type: str,
+) -> Optional[PreTrainedTokenizer | PreTrainedTokenizerFast | None]:
+    """
+    Get the tokenizer based on the specified type.
+
+    Args:
+        type (str): The type of tokenizer to get. Currently supports "bert-cased".
+
+    Returns:
+        PreTrainedTokenizer | PreTrainedTokenizerFast | None: The tokenizer object.
+
+    Raises:
+        NotImplementedError: If the specified type is not supported.
+
+    Example usage:
+        tokenizer = getTokenizer("bert-cased")
+    """
     if type.lower() == "bert-cased":
         return AutoTokenizer.from_pretrained("bert-base-cased")
     else:
@@ -131,8 +156,29 @@ def getTokenizer(type: str) -> PreTrainedTokenizer | PreTrainedTokenizerFast | N
 
 
 def get_model(
-    type: str, n_labels: int, model_path: str = None, device: torch.device = None
-):
+    type: str,
+    n_labels: int,
+    model_path: Optional[str] = None,
+    device: Optional[torch.device] = None,
+) -> BertForSequenceClassification:
+    """
+    Get the model based on the specified type and number of labels.
+
+    Args:
+        type (str): The type of model to get. Currently supports "bert-cased".
+        n_labels (int): The number of labels for the classification task.
+        model_path (Optional[str]): The path to a pre-trained model checkpoint. Defaults to None.
+        device (Optional[torch.device]): The device to map the model to. Defaults to None.
+
+    Returns:
+        BertForSequenceClassification: The model object.
+
+    Raises:
+        NotImplementedError: If the specified type is not supported.
+
+    Example usage:
+        model = get_model("bert-cased", n_labels=2, model_path="path/to/model", device=torch.device("cuda:0"))
+    """
     if type.lower() == "bert-cased":
         model = BertForSequenceClassification.from_pretrained(
             "bert-base-cased", num_labels=n_labels

@@ -7,6 +7,7 @@ import util.utils as utils
 import logging
 from data.dataset import TextDataset
 from functools import partial
+from typing import Dict, Any
 
 from tqdm import tqdm
 from torchmetrics.classification import (
@@ -16,11 +17,7 @@ from torchmetrics.classification import (
 )
 
 
-# TODO:
-# 1. typing and costrings
-
-
-def main(config) -> None:
+def main(config: Dict[str, Any]) -> None:
     utils.print_config(config=config, verbose=config.verbose)
     torch.set_float32_matmul_precision(config.matmul_precision)
 
