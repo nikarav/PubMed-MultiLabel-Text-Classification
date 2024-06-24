@@ -1,0 +1,22 @@
+name: "pilot"
+matmul_precision: "medium"
+
+data:
+  train_path: "/home/nkaravasilis@wincell.dc/github/PubMed-MultiLabel-Text-Classification/data/train.csv"
+  val_path: "/home/nkaravasilis@wincell.dc/github/PubMed-MultiLabel-Text-Classification/data/val.csv"
+  max_length: 100
+  n_labels: 15
+  padding: "max_length"
+  truncation: True 
+  features_cols: ["abstractText"]
+  label_cols: ["labels"]
+  num_workers: 2 
+  pin_memory: True
+  batch: 2
+
+
+model:
+  type: "Bert-cased"
+  epochs: 5
+  lr: 1e-5
+  save_path: "/home/nkaravasilis@wincell.dc/github/PubMed-MultiLabel-Text-Classification/weights"
